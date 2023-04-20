@@ -11,6 +11,11 @@
 - MongoDB & MongoDB Compass
 - Docker
 
+# Review
+## MongoDB Code
+- bson (D,E,M)
+
+
 # Resources
 - [Official GitHub](https://github.com/fulltimegodev/hotel-reservation)
 - [MongoDB Doc](https://mongodb.com/docs/drivers/go/current/quick-start/)
