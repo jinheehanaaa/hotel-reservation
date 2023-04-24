@@ -3,9 +3,16 @@
 - ./bin/api --listenAddr :7000
 - docker run --name mongodb -d mongo:latest -p 27017:27017
 
-# 3rd Party Packages
+# Features
+- Store User in DB
+- Store Hotel & Room in DB
+- User Authentication using JWT
+
+
+# Major Packages
 - Fiber
 - mongodb
+- golang-jwt
 
 # Tools
 - MongoDB & MongoDB Compass
