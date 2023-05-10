@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
-	"fmt"
 	"log"
 	"net/http/httptest"
 	"testing"
@@ -36,9 +35,8 @@ func setup(t *testing.T) *testdb {
 	if err != nil {
 		log.Fatal(err)
 	}
-
 	return &testdb{
-		UserStore: db.NewMongoUserStore(client, dbname),
+		UserStore: db.NewMongoUserStore(client),
 	}
 }
 
@@ -54,18 +52,15 @@ func TestPostUser(t *testing.T) {
 		Email:     "some@foo.com",
 		FirstName: "James",
 		LastName:  "Foo",
-		Password:  "dgsddggsdgfrwe",
+		Password:  "lkdfjkdsjfklfdjkedf",
 	}
-
 	b, _ := json.Marshal(params)
-
 	req := httptest.NewRequest("POST", "/", bytes.NewReader(b))
 	req.Header.Add("Content-Type", "application/json")
 	resp, err := app.Test(req)
 	if err != nil {
 		t.Error(err)
 	}
-
 	var user types.User
 	json.NewDecoder(resp.Body).Decode(&user)
 	if len(user.ID) == 0 {
@@ -78,10 +73,9 @@ func TestPostUser(t *testing.T) {
 		t.Errorf("expected firstname %s but got %s", params.FirstName, user.FirstName)
 	}
 	if user.LastName != params.LastName {
-		t.Errorf("expected lastname %s but got %s", params.LastName, user.LastName)
+		t.Errorf("expected last name %s but got %s", params.LastName, user.LastName)
 	}
 	if user.Email != params.Email {
 		t.Errorf("expected email %s but got %s", params.Email, user.Email)
 	}
-	fmt.Println(user)
 }
