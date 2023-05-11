@@ -20,6 +20,8 @@ var config = fiber.Config{
 }
 
 func main() {
+	// 2023-04-12
+	// 2023-04-12 20:48:37.000684427 +0200 CEST m=+0.000925311
 	listenAddr := flag.String("listenAddr", ":5000", "The listen address of the API server")
 	flag.Parse()
 
@@ -30,13 +32,15 @@ func main() {
 
 	// handlers initialization
 	var (
-		hotelStore = db.NewMongoHotelStore(client)
-		roomStore  = db.NewMongoRoomStore(client, hotelStore)
-		userStore  = db.NewMongoUserStore(client)
-		store      = &db.Store{
-			Hotel: hotelStore,
-			Room:  roomStore,
-			User:  userStore,
+		hotelStore   = db.NewMongoHotelStore(client)
+		roomStore    = db.NewMongoRoomStore(client, hotelStore)
+		userStore    = db.NewMongoUserStore(client)
+		bookingStore = db.NewMongoBookingStore(client)
+		store        = &db.Store{
+			Hotel:   hotelStore,
+			Room:    roomStore,
+			User:    userStore,
+			Booking: bookingStore,
 		}
 		userHandler  = api.NewUserHandler(userStore)
 		hotelHandler = api.NewHotelHandler(store)
@@ -61,8 +65,9 @@ func main() {
 	// hotel handlers
 	apiv1.Get("/hotel", hotelHandler.HandleGetHotels)
 	apiv1.Get("/hotel/:id", hotelHandler.HandleGetHotel)
-	apiv1.Get("hotel/:id/rooms", hotelHandler.HandleGetRooms)
+	apiv1.Get("/hotel/:id/rooms", hotelHandler.HandleGetRooms)
 
+	apiv1.Get("/room", roomHandler.HandleGetRooms)
 	apiv1.Post("/room/:id/book", roomHandler.HandleBookRoom)
 	app.Listen(*listenAddr)
 }
