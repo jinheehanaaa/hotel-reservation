@@ -1,5 +1,5 @@
 # APIs
-## User/Admin Auth
+## User/Admin Auth (POST)
 - http://localhost:5000/api/auth
 - X-Api-Token
 
@@ -15,10 +15,11 @@
   "password": "adminpassword123"
 }
 ```
-## List a Hotel
-- http://localhost:5000/api/v1/hotel for listing hotel
 
-## Book a room
+## List a hotel (GET)
+- http://localhost:5000/api/v1/hotel
+
+## Book a room (POST)
 - http://localhost:5000/api/v1/room/645bff84fe030d781f0060df/book
 ```json
 {
@@ -28,11 +29,14 @@
 }
 ```
 
-## List Rooms
+## List Rooms (GET)
 - http://localhost:5000/api/v1/room/
 
-## Admin booking list
+## Admin booking list (GET)
 - http://localhost:5000/api/v1/admin/booking
 
-## User booking list
+## User booking list (GET)
 - http://localhost:5000/api/v1/booking/64625d36532b9268e41c6637
+
+## Cancel booking (GET)
+- http://localhost:5000/api/v1/booking/64625d36532b9268e41c6637/cancel
