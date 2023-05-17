@@ -36,7 +36,7 @@ type AuthResponse struct {
 
 type genericResp struct {
 	Type string `json:"type"`
-	Msg  string `json:"msg:"`
+	Msg  string `json:"msg"`
 }
 
 func invalidCredentials(c *fiber.Ctx) error {
@@ -59,7 +59,6 @@ func (h *AuthHandler) HandleAuthenticate(c *fiber.Ctx) error {
 	user, err := h.userStore.GetUserByEmail(c.Context(), params.Email)
 	if err != nil {
 		if errors.Is(err, mongo.ErrNoDocuments) {
-			return fmt.Errorf("invalid credentials")
 			return invalidCredentials(c)
 		}
 		return err
