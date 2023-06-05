@@ -1,7 +1,11 @@
 
-# CMD
-- ./bin/api --listenAddr :7000
-- docker run --name mongodb -d mongo:latest -p 27017:27017
+# Environment Variables
+```
+HTTP_LISTEN_ADDRESS =: 3000
+JWT_SECRET=somethingsupersecretthatNOBODYKNOWS
+MONGO_DB_NAME=hotel-reservation
+MONGO_DB_URL=mongodb://localhost:27017
+```
 
 # Features
 - Store User in DB
